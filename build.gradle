@@ -3,7 +3,7 @@ plugins {
     id 'war'
 }
 
-group 'com.example'
+group 're'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -22,11 +22,11 @@ tasks.withType(JavaCompile) {
 }
 
 dependencies {
+    // Source: https://mvnrepository.com/artifact/org.springframework/spring-webmvc
+    // Source: https://mvnrepository.com/artifact/javax.servlet/jstl
+    implementation("javax.servlet:jstl:1.2")
+    implementation("org.springframework:spring-webmvc:5.3.18")
     compileOnly('javax.servlet:javax.servlet-api:4.0.1')
-    implementation('org.glassfish.jersey.containers:jersey-container-servlet:2.34')
-    implementation('org.glassfish.jersey.media:jersey-media-json-jackson:2.34')
-    implementation('org.glassfish.jersey.inject:jersey-cdi2-se:2.34')
-    implementation('org.jboss.weld.se:weld-se-core:3.1.9.Final')
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
