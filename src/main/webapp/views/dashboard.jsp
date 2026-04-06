@@ -5,77 +5,124 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
+    <title>Dashboard - StudentHub</title>
 
     <style>
         body {
-            font-family: Arial;
-            background: #f5f7fa;
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #eef2ff, #f5f7fa);
         }
 
         .container {
-            width: 900px;
-            margin: auto;
+            width: 1100px;
+            margin: 30px auto;
         }
 
         h1 {
             text-align: center;
             color: #1a237e;
+            margin-bottom: 30px;
         }
 
-        .box {
+        /* CARD */
+        .cards {
             display: flex;
             gap: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .card {
             flex: 1;
             background: white;
-            padding: 20px;
-            border-radius: 10px;
+            border-radius: 12px;
+            padding: 25px;
             text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: 0.3s;
         }
 
-        .top {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+        .card:hover {
+            transform: translateY(-5px);
         }
 
-        .status {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        .bar {
-            background: #ddd;
-            height: 20px;
-            border-radius: 20px;
-            overflow: hidden;
+        .card h3 {
+            color: #666;
             margin-bottom: 10px;
         }
 
-        .fill {
-            height: 20px;
-            color: white;
-            text-align: center;
-            line-height: 20px;
+        .card p {
+            font-size: 28px;
+            font-weight: bold;
+            color: #3949ab;
         }
 
-        .green { background: green; }
-        .orange { background: orange; }
-        .blue { background: blue; }
+        /* TOP STUDENT */
+        .top {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
 
-        a {
+        .top h2 {
+            color: #1a237e;
+            margin-bottom: 15px;
+        }
+
+        .top p {
+            margin: 6px 0;
+            font-size: 15px;
+        }
+
+        /* STATUS */
+        .status {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .status h2 {
+            color: #1a237e;
+            margin-bottom: 20px;
+        }
+
+        .bar {
+            background: #e0e0e0;
+            height: 22px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .fill {
+            height: 22px;
+            color: white;
+            text-align: center;
+            line-height: 22px;
+            font-size: 13px;
+        }
+
+        .green { background: #43a047; }
+        .orange { background: #fb8c00; }
+        .blue { background: #1e88e5; }
+
+        /* BUTTON */
+        .btn {
             display: inline-block;
-            margin-top: 20px;
+            margin-top: 25px;
             background: #1a237e;
             color: white;
-            padding: 8px 15px;
+            padding: 10px 18px;
+            border-radius: 6px;
             text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #3949ab;
         }
     </style>
 </head>
@@ -84,10 +131,10 @@
 
 <div class="container">
 
-    <h1>Dashboard</h1>
+    <h1>📊 Dashboard StudentHub</h1>
 
-    <!-- Tổng + GPA -->
-    <div class="box">
+    <!-- CARD -->
+    <div class="cards">
         <div class="card">
             <h3>Tổng sinh viên</h3>
             <p>${totalStudents}</p>
@@ -99,38 +146,38 @@
         </div>
     </div>
 
-    <!-- Thủ khoa -->
+    <!-- TOP STUDENT -->
     <div class="top">
-        <h2>Thủ khoa</h2>
+        <h2>🏆 Thủ khoa</h2>
 
         <c:if test="${topStudent != null}">
-            <p>Họ tên: ${topStudent.fullName}</p>
-            <p>Mã SV: ${topStudent.studentCode}</p>
-            <p>Khoa: ${topStudent.faculty}</p>
-            <p>GPA: ${topStudent.gpa}</p>
-            <p>Trạng thái: ${topStudent.status}</p>
+            <p><b>Họ tên:</b> ${topStudent.fullName}</p>
+            <p><b>Mã SV:</b> ${topStudent.studentCode}</p>
+            <p><b>Khoa:</b> ${topStudent.faculty}</p>
+            <p><b>GPA:</b> ${topStudent.gpa}</p>
+            <p><b>Trạng thái:</b> ${topStudent.status}</p>
         </c:if>
     </div>
 
-    <!-- Tỷ lệ -->
+    <!-- STATUS -->
     <div class="status">
-        <h2>Tỷ lệ trạng thái</h2>
+        <h2>📈 Tỷ lệ trạng thái</h2>
 
-        Đang học
+        <p>Đang học</p>
         <div class="bar">
             <div class="fill green" style="width:${studyingPercent}%">
                 ${studyingPercent}%
             </div>
         </div>
 
-        Bảo lưu
+        <p>Bảo lưu</p>
         <div class="bar">
             <div class="fill orange" style="width:${pausedPercent}%">
                 ${pausedPercent}%
             </div>
         </div>
 
-        Tốt nghiệp
+        <p>Tốt nghiệp</p>
         <div class="bar">
             <div class="fill blue" style="width:${graduatedPercent}%">
                 ${graduatedPercent}%
@@ -138,7 +185,7 @@
         </div>
     </div>
 
-    <a href="${pageContext.request.contextPath}/students">Quay lại</a>
+    <a href="${pageContext.request.contextPath}/students" class="btn">⬅ Quay lại danh sách</a>
 
 </div>
 
