@@ -46,7 +46,7 @@ public class StudentController {
         }
 
         model.addAttribute("students", students);
-        return "student-list";
+        return "list";
     }
 
     // UC-02: Xem chi tiết
@@ -54,6 +54,6 @@ public class StudentController {
     public String getStudentDetail(@RequestParam("id") int id, Model model) {
         Student student = studentService.getById(id);
         model.addAttribute("student", student);
-        return "student-detail";
+        return "detail";
     }
 }
