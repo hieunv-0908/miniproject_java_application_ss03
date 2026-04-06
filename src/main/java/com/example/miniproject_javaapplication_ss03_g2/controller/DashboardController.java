@@ -1,7 +1,5 @@
 package com.example.miniproject_javaapplication_ss03_g2.controller;
 
-package com.example.miniproject_javaapplication_ss03_g2.controller;
-
 import com.example.miniproject_javaapplication_ss03_g2.model.Student;
 import com.example.miniproject_javaapplication_ss03_g2.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
