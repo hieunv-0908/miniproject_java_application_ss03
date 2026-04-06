@@ -16,39 +16,41 @@ public class DashboardService {
     @Autowired
     private StudentRepository studentRepository;
 
+    // 1. Tổng số sinh viên trong nhóm
     public int getTotalStudents() {
         return studentRepository.findAll().size();
     }
 
-    // Tính điểm trung bình của cả nhóm
+    // 2. GPA trung bình toàn nhóm (Làm tròn 2 chữ số thập phân)
     public double getAverageGPA() {
-        List<Student> students = studentRepository.findAll();
-        if (students.isEmpty()) return 0.0;
-        return students.stream()
+        return studentRepository.findAll().stream()
                 .mapToDouble(Student::getGpa)
                 .average()
                 .orElse(0.0);
     }
 
-    // Tìm thủ khoa (người có GPA cao nhất)
+    // 3. Tìm Thủ khoa (Người có GPA cao nhất)
     public Student getTopStudent() {
         return studentRepository.findAll().stream()
-                .max(Comparator.comparing(Student::getGpa))
+                .max(Comparator.comparingDouble(Student::getGpa))
                 .orElse(null);
     }
 
-    // Tính tỷ lệ % theo trạng thái (Đang học, Bảo lưu, Tốt nghiệp)
-    public Map<String, Double> getStatusPercentages() {
-        List<Student> students = studentRepository.findAll();
-        int total = students.size();
+    /**
+     * 4. Tính tỷ lệ % theo trạng thái (Đang học, Bảo lưu, Tốt nghiệp)
+     * Trả về Map<Trạng thái, Phần trăm>
+     */
+    public Map<String, Double> getStatusDistribution() {
+        List<Student> all = studentRepository.findAll();
+        int total = all.size();
         if (total == 0) return Map.of();
 
-        return students.stream()
+        return all.stream()
                 .collect(Collectors.groupingBy(
                         Student::getStatus,
                         Collectors.collectingAndThen(
                                 Collectors.counting(),
-                                count -> (count * 100.0) / total
+                                count -> Math.round((count * 100.0 / total) * 100.0) / 100.0 // Làm tròn 2 số
                         )
                 ));
     }
